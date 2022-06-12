@@ -9,7 +9,6 @@
               <option>All</option>
               <option>Male</option>
               <option>Female</option>
-              <option>Others</option>
             </select>
           </div>
         </div>
