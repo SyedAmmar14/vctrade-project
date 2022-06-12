@@ -14,13 +14,8 @@
         </div>
         <div class="col-6 col-md-6 mt-5">
           <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="SearchName"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-            />
+            <input type="text" class="form-control" placeholder="SearchName" aria-label="Username"
+              aria-describedby="basic-addon1" />
           </div>
         </div>
       </div>
@@ -30,10 +25,9 @@
         <div class="col-12 text-center">
           <div class="users-data text-left" v-for="(user, i) in users" :key="i">
             <!-- <img :src="user.img" /> -->
-            <span
-              >
-              <p>{{ user.gender }}</p></span
-            >
+            <span>
+              <p>{{ user.gender }}</p>
+            </span>
           </div>
         </div>
       </div>
@@ -45,7 +39,7 @@
 </template>
 
 <script>
-// import HelloWorld from '@/components/HelloWorld.vue'
+
 
 import axios from "axios";
 export default {
@@ -58,26 +52,14 @@ export default {
   },
   mounted() {
     axios.get('https://randomuser.me/api/?results=25')
-    .then((records) => {
-				this.state.users = records
-			});
+      .then((records) => {
+        this.state.users = records
+      });
   },
-  // methods: {
-	// loadmore() {
-	// 	axios.get('randomuser.me/api/?limit=25&offset=25')
-	// 		.then((records) => {
-	// 			records.map(record => this.state.users.push(record));
-	// 		})
-	// },
-  
-  components: {
-    // HelloWorld
-  },
+
+
 };
 </script>
 <style scoped>
-img {
-  width: 5%;
-  border-radius: 50%;
-}
+
 </style>
