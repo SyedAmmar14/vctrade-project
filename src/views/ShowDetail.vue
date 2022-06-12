@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip"
-                                :src="unique.picture.large">
+                                :src="unique.picture.medium">
                         </div>
                         <div class="col-md-6">
                             <div class="table-responsive">
