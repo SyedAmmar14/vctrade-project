@@ -21,28 +21,28 @@
     </div>
     <div class="container users-list">
       <div class="row">
-        <div class="col-12 text-center">
-          <div class="users-data text-left" v-for="(user, i) in users" :key="i">
-
-            <div v-for="(detail, index) in user.results" :key="index">
-              <div>
-                <ul>
-                  <li><img :src="detail.picture.thumbnail" /> {{ detail.gender }} {{ detail.email }} {{ detail.name.first }} {{
-                      detail.name.last
-                  }}</li>
-                </ul>
+        <div class="users-data text-left" v-for="(user, i) in users" :key="i">
+          <div v-for="(detail, index) in user.results" :key="index">
+            <div class="col-12 col-md-4 text-center">
+              <div class="media pt-2 pb-3">
+                <router-link :to="`/${detail.id.value}`">
+                  <img class="align-self-center mr-3" :src="detail.picture.thumbnail" />
+                </router-link>
+                <div class="media-body">
+                  <h5 class="mt-0">{{ detail.name.first }} {{ detail.name.last }}</h5>
+                  <h6>{{ detail.email }}</h6>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="load-more" @click="loadmore" >
+      <div class="load-more pb-5" @click="loadmore">
         <button class="btn btn-primary">More Results</button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 
 
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       users: [],
-      search:'',
+      search: '',
     };
   },
   mounted() {
@@ -63,25 +63,30 @@ export default {
       });
   },
 
-// methods:{
-//   loadmore(){
-//     axios.get('randomuser.me/api/?offset=25&results=25')
-//     .then((records) => {
-//       records.map(record => this.users.push(record));
-//     })
+  methods: {
+    loadmore() {
+      axios.get('randomuser.me/api/?results=25&offset=25')
+        .then((records) => {
+          records.map(record => this.users.push(record));
+          console.log(records)
+        });
 
-//   }
-// }
 
-// computed: {
+    }
+  }
 
-//   filteredUsers: function() {
-//     return this.users.filter((detail) =>{
-//         return detail.first.match(this.search);
-//     });
-//   }
-// }
+  // computed: {
+
+  //   filteredUsers: function() {
+  //     return this.users.filter((detail) =>{
+  //         return detail.first.match(this.search);
+  //     });
+  //   }
+  // }
 };
 </script>
 <style scoped>
+.users-list .users-data ul {
+  list-style-type: none;
+}
 </style>
