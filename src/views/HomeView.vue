@@ -14,8 +14,7 @@
         </div>
         <div class="col-6 col-md-3 mt-5">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="SearchName" aria-label="Username"
-              aria-describedby="basic-addon1" />
+            <input type="text" class="form-control" v-model="search" placeholder="SearchName" />
           </div>
         </div>
       </div>
@@ -54,6 +53,7 @@ export default {
   data() {
     return {
       users: [],
+      search:'',
     };
   },
   mounted() {
@@ -63,15 +63,24 @@ export default {
       });
   },
 
-methods:{
-  loadmore(){
-    axios.get('randomuser.me/api/?offset=25&results=25')
-    .then((records) => {
-      records.map(record => this.users.push(record));
-    })
+// methods:{
+//   loadmore(){
+//     axios.get('randomuser.me/api/?offset=25&results=25')
+//     .then((records) => {
+//       records.map(record => this.users.push(record));
+//     })
 
-  }
-}
+//   }
+// }
+
+// computed: {
+
+//   filteredUsers: function() {
+//     return this.users.filter((detail) =>{
+//         return detail.first.match(this.search);
+//     });
+//   }
+// }
 };
 </script>
 <style scoped>
