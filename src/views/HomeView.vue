@@ -28,7 +28,7 @@
     <div class="container users-list">
       <div class="row">
         <div class="col-12 text-center">
-          <div class="users-data text-left" v-for="(user, i) in results" :key="i">
+          <div class="users-data text-left" v-for="(user, i) in users" :key="i">
             <!-- <img :src="user.img" /> -->
             <span
               >
@@ -53,16 +53,23 @@ export default {
 
   data() {
     return {
-      results: [
-
-      ],
+      users: [],
     };
   },
   mounted() {
-    axios.get('randomuser.me/api/?limit=25')
-    .then((response) => console.log(response.data));
-
+    axios.get('https://randomuser.me/api/?results=25')
+    .then((records) => {
+				this.state.users = records
+			});
   },
+  // methods: {
+	// loadmore() {
+	// 	axios.get('randomuser.me/api/?limit=25&offset=25')
+	// 		.then((records) => {
+	// 			records.map(record => this.state.users.push(record));
+	// 		})
+	// },
+  
   components: {
     // HelloWorld
   },
