@@ -57,28 +57,6 @@
 </template>
 
 
-<!-- <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-4 text-center m-auto pt-5">
-                <div v-for="(uniquedetail, i) in user" :key="i">
-                    <div v-for="(unique, i) in uniquedetail.results" :key="i">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" :src="unique.picture.medium" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="mt-0">{{ unique.name.first }}</h5>
-                                <h6> {{ unique.email }} </h6>
-                                <h6> {{ unique.cell }} </h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template> -->
 
 <script>
 
@@ -94,7 +72,7 @@ export default {
     components: {},
 
     mounted() {
-        axios.get('https://randomuser.me/api/?results=25/${id.value}')
+        axios.get(`https://randomuser.me/api?results=25&id=${this.$route.params.id}`)
             .then((records) => {
                 this.user = records
             });
