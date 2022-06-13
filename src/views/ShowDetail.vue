@@ -5,10 +5,10 @@
                 <div v-for="(unique, i) in uniquedetail.results" :key="i">
                     <div class="row">
                         <div class="col-md-4">
-                            <img alt="" style="width:600px;" title="" class="img-circle img-thumbnail isTooltip"
+                            <img style="width:600px; border-radius: 50%;" title="" class="img-circle img-thumbnail isTooltip"
                                 :src="unique.picture.medium">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 m-auto">
                             <div class="table-responsive">
                                 <table class="table table-user-information">
                                     <tbody>
@@ -45,7 +45,6 @@
                                                 {{ unique.email }}
                                             </td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>
