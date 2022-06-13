@@ -5,7 +5,7 @@
                 <div v-for="(unique, i) in uniquedetail.results" :key="i">
                     <div class="row">
                         <div class="col-md-4">
-                            <img style="width:600px; border-radius: 50%;" title="" class="img-circle img-thumbnail isTooltip"
+                            <img style="width:600px; border-radius: 50%;" class="img-circle img-thumbnail"
                                 :src="unique.picture.medium">
                         </div>
                         <div class="col-md-6 m-auto">
@@ -15,7 +15,7 @@
                                         <tr>
                                             <td>
                                                 <strong>
-                                                    <span class="glyphicon glyphicon-user  text-primary"></span>
+                                                    <span class="text-primary"></span>
                                                     Name
                                                 </strong>
                                             </td>
@@ -26,7 +26,7 @@
                                         <tr>
                                             <td>
                                                 <strong>
-                                                    <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                                    <span class="text-primary"></span>
                                                     Phone Number
                                                 </strong>
                                             </td>
@@ -37,7 +37,7 @@
                                         <tr>
                                             <td>
                                                 <strong>
-                                                    <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                                    <span class="text-primary"></span>
                                                     Email
                                                 </strong>
                                             </td>

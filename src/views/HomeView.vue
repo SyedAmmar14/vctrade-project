@@ -73,10 +73,8 @@ export default {
         .then((records) => {
           records.map(record => this.users.push(record));
         });
-
-
     }
-  }
+  },
 
   // computed: {
 
