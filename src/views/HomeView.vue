@@ -69,10 +69,9 @@ export default {
 
   methods: {
     loadmore() {
-      axios.get('randomuser.me/api/?results=25&offset=25')
+      axios.get('https://randomuser.me/api/?results=25&offset=25')
         .then((records) => {
           records.map(record => this.users.push(record));
-          console.log(records)
         });
 
 
