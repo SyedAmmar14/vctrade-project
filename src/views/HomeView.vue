@@ -23,10 +23,6 @@
               type="submit">
               Search
             </button>
-            <button class="btn btn-secondary ml-2" :class="loading ? 'btn-disabled' : ''"
-              :disabled="loading ? true : false" @click="reset" type="button">
-              Reset
-            </button>
           </div>
         </div>
       </form>
@@ -154,6 +150,7 @@ export default {
         this.users = records
       })
       .finally(() => this.loading = false);
+      
   },
 
   methods: {
@@ -167,23 +164,6 @@ export default {
           records.map(record => this.users.push(record));
         })
         .finally(() => this.loading = false);
-    },
-    reset() {
-      this.page = 1;
-      this.loading = true;
-      this.keyword = '';
-      this.gender = '';
-      this.fullLoading = true;
-
-      axios.get(`https://randomuser.me/api/?results=25&page=${this.page}&name=${this.keyword}&gender=${this.gender}`)
-        .then(response => response.data.results)
-        .then((records) => {
-          this.users = records;
-        })
-        .finally(() => {
-          this.loading = false;
-          this.fullLoading = false;
-        });
     },
     searchData() {
       this.page = 1;
