@@ -5,7 +5,7 @@
         <div class="col mt-3">
           <div class="form-group">
             <label for="GenderSelect"><strong>Select Gender</strong></label>
-            <select class="form-control" id="GenderSelect" v-model="gender">
+            <select class="form-control" id="GenderSelect" v-model="gender" @change="searchData()">
               <option value="">All</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -17,21 +17,13 @@
             <input type="text" class="form-control" v-model="keyword" placeholder="SearchName" />
           </div>
         </div>
-        <div class="col mt-5">
-          <div class="input-group mb-3">
-            <button class="btn btn-primary" :class="loading ? 'btn-disabled' : ''" :disabled="loading ? true : false"
-              type="submit">
-              Search
-            </button>
-          </div>
-        </div>
       </form>
     </div>
     <div class="container users-list">
       <div class="row">
         <div class="col-12 users-data text-left">
-          <div class="row" v-if="!this.fullLoading">
-            <div class="col-12 col-md-4" v-for="(detail, index) in users" :key="index">
+          <div class="row">
+            <div class="col-12 col-md-4" v-for="(detail, index) in filteredResults" :key="index">
               <div class="card mb-3 text-left pointer" @click="openModel(index)">
                 <div class="card-body">
                   <div class="media pt-2 pb-3">
@@ -67,12 +59,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="row" v-if="openItem >= 0 && users[openItem]">
+            <div class="row" v-if="openItem >= 0 && filteredResults[openItem]">
               <div class="col-md-4">
                 <img style="width:600px; border-radius: 50%;" class="img-circle img-thumbnail"
-                  :src="users[openItem].picture.medium">
+                  :src="filteredResults[openItem].picture.medium">
               </div>
-              <div class="col-md-6 m-auto">
+              <div class="col-md-8 m-auto">
                 <div class="table-responsive">
                   <table class="table table-user-information">
                     <tbody>
@@ -80,11 +72,11 @@
                         <td>
                           <strong>
                             <span class="text-primary"></span>
-                            Name
+                            User ID
                           </strong>
                         </td>
                         <td class="text-primary">
-                          {{ users[openItem].name.first }}
+                          {{ filteredResults[openItem].id.name }}
                         </td>
                       </tr>
                       <tr>
@@ -95,7 +87,7 @@
                           </strong>
                         </td>
                         <td class="text-primary">
-                          {{ users[openItem].cell }}
+                          {{ filteredResults[openItem].phone }}
                         </td>
                       </tr>
                       <tr>
@@ -106,7 +98,19 @@
                           </strong>
                         </td>
                         <td class="text-primary">
-                          {{ users[openItem].email }}
+                          {{ filteredResults[openItem].email }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <strong>
+                            <span class="text-primary"></span>
+                            Location
+                          </strong>
+                        </td>
+                        <td class="text-primary">
+                          {{ filteredResults[openItem].location.street }} {{ filteredResults[openItem].location.city }},
+                          {{ filteredResults[openItem].location.state }}
                         </td>
                       </tr>
                     </tbody>
@@ -129,36 +133,35 @@
 import axios from "axios";
 export default {
   name: "HomeView",
-
   data() {
     return {
       users: [],
-      search: '',
-      page: 1,
+      search: "",
       loading: false,
-      keyword:'',
-      gender: '',
-      fullLoading: false,
+      keyword: "",
+      gender: "",
       openItem: null,
+      apiUrl: `https://randomuser.me/api/?results=25&inc=gender,name,location,id,email,phone,picture`
     };
   },
   mounted() {
     this.loading = true;
-    axios.get(`https://randomuser.me/api/?results=25&page=${this.page}`)
+    axios.get(this.apiUrl)
       .then(response => response.data.results)
       .then((records) => {
-        this.users = records
+        this.users = records;
       })
       .finally(() => this.loading = false);
-      
   },
-
+  computed: {
+    filteredResults: function () {
+      return this.users.filter((el) => { return el.name.first.toLowerCase().match(this.keyword) || el.name.last.toLowerCase().match(this.keyword); });
+    }
+  },
   methods: {
     loadmore() {
-      this.page = this.page+1;
       this.loading = true;
-
-      axios.get(`https://randomuser.me/api/?results=25&page=${this.page}&name=${this.keyword}&gender=${this.gender}`)
+      axios.get(this.apiUrl)
         .then(response => response.data.results)
         .then((records) => {
           records.map(record => this.users.push(record));
@@ -166,24 +169,19 @@ export default {
         .finally(() => this.loading = false);
     },
     searchData() {
-      this.page = 1;
       this.loading = true;
-      this.fullLoading = true;
-
-      axios.get(`https://randomuser.me/api/?results=25&page=${this.page}&first_name=${this.keyword}&gender=${this.gender}`)
+      axios.get(`${this.apiUrl}&gender=${this.gender}`)
         .then(response => response.data.results)
         .then((records) => {
           this.users = records;
         })
         .finally(() => {
           this.loading = false;
-          this.fullLoading = false;
         });
     },
-
     openModel(i) {
       this.openItem = i;
-      window.$('#myModal').modal('show')
+      window.$("#myModal").modal("show");
     }
   },
 };
@@ -192,6 +190,7 @@ export default {
 .users-list .users-data ul {
   list-style-type: none;
 }
+
 .pointer {
   cursor: pointer;
 }
