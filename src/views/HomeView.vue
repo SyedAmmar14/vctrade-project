@@ -76,7 +76,7 @@
                           </strong>
                         </td>
                         <td class="text-primary">
-                          {{ filteredResults[openItem].id.name }}
+                          {{ filteredResults[openItem].id.name }} , {{ filteredResults[openItem].id.value }}
                         </td>
                       </tr>
                       <tr>
