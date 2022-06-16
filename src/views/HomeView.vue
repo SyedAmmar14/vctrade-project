@@ -155,7 +155,8 @@ export default {
   },
   computed: {
     filteredResults: function () {
-      return this.users.filter((el) => { return el.name.first.toLowerCase().match(this.keyword) || el.name.last.toLowerCase().match(this.keyword); });
+      return this.users.filter((el) => { 
+        return el.name.first.toLowerCase().match(this.keyword) || el.name.last.toLowerCase().match(this.keyword); });
     }
   },
   methods: {
